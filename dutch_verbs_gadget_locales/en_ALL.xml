@@ -1,0 +1,15 @@
+<messagebundle>
+  <msg name="server_error">
+    A server error occured
+  </msg>
+  <msg name="no_verb_found">
+    No such irregular verb found
+  </msg>
+  <msg name="lookup">Look up</msg>  
+  <msg name="infinitive">infinitive</msg>
+  <msg name="perfectum">past participle</msg>
+  <msg name="imperfectum">simple past</msg>
+  <msg name="singular">singular</msg>
+  <msg name="plural">plural</msg>
+  <msg name="widget_title">Dutch Irregular Verbs</msg>
+</messagebundle>

@@ -1,0 +1,15 @@
+<messagebundle>
+  <msg name="server_error">
+    Er is een fout opgetreden tijdens het communiceren met de server.
+  </msg>
+  <msg name="no_verb_found">
+    Geen werkwoord gevonden
+  </msg>
+  <msg name="lookup">Opzoeken</msg>  
+  <msg name="infinitive">infinitief</msg>
+  <msg name="perfectum">perfectum</msg>
+  <msg name="imperfectum">imperfectum</msg>
+  <msg name="singular">enkelvoud</msg>
+  <msg name="plural">meervoud</msg>
+  <msg name="widget_title">Onregelmatige werkwoorden</msg>
+</messagebundle>

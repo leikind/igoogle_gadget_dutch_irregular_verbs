@@ -1,0 +1,15 @@
+<messagebundle>
+  <msg name="server_error">
+    Произошла ошибка при связи с сервером
+  </msg>
+  <msg name="no_verb_found">
+    Неправильный глагол не найден
+  </msg>
+  <msg name="lookup">Искать</msg>  
+  <msg name="infinitive">инфинитив</msg>
+  <msg name="perfectum">причастие пр. времени</msg>
+  <msg name="imperfectum">простое прошедшее</msg>
+  <msg name="singular">ед. число</msg>
+  <msg name="plural">мн. число</msg>
+  <msg name="widget_title">Нидерландские неправильные глаголы</msg>  
+</messagebundle>

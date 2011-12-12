@@ -1,0 +1,15 @@
+<messagebundle>
+  <msg name="server_error">
+    Błąd przy połączeniu z serwerem
+  </msg>
+  <msg name="no_verb_found">
+    Nie znaleziono nieregularnego czasownika
+  </msg>
+  <msg name="lookup">wyszukiwanie</msg>  
+  <msg name="infinitive">bezokolicznik</msg>
+  <msg name="perfectum">imiesłów czasu przeszłegoe</msg>
+  <msg name="imperfectum">czas przeszły</msg>
+  <msg name="singular">liczba pojedyncza</msg>
+  <msg name="plural"> liczba mnoga</msg>
+  <msg name="widget_title">Holenderskie czasowniki nieregularne</msg>
+</messagebundle>

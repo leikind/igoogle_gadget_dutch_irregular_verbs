@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+
+  <ModulePrefs 
+    title="__MSG_widget_title__"
+    directory_title="__MSG_widget_title__"
+    height="143"
+    author="Yuri Leikind"
+    author_email="yuri@leikind.org"
+    author_location="Belgium"
+    author_affiliation="Programming Hobbyist"
+    description="A widget to quickly look up Dutch irregular verbs"
+    screenshot="http://leikind.org/dutch_irregular_verbs_screenshot.png"
+    thumbnail="http://leikind.org/dutch_irregular_verbs_thumb.png"  > 
+    <!-- How is it possible to meet these requirements:
+        "Gadget screenshots should be 280 pixels wide." and
+        "Screenshots should not be resized or cropped."
+        If we cannot control the width of a gadget and they are wider than 280 pixels? -->
+      <Locale messages="http://leikind.org/dutch_verbs_gadget_locales/ALL_ALL.xml"/> 
+      <Locale lang="nl" messages="http://leikind.org/dutch_verbs_gadget_locales/nl_ALL.xml"/> 
+      <Locale lang="en" messages="http://leikind.org/dutch_verbs_gadget_locales/en_ALL.xml"/> 
+      <Locale lang="ru" messages="http://leikind.org/dutch_verbs_gadget_locales/ru_ALL.xml"/> 
+      <Locale lang="fr" messages="http://leikind.org/dutch_verbs_gadget_locales/fr_ALL.xml"/> 
+      <Locale lang="pl" messages="http://leikind.org/dutch_verbs_gadget_locales/pl_ALL.xml"/> 
+  </ModulePrefs>
+    
+  <Content type="html">
+    <![CDATA[
+    <script type="text/javascript">
+      function process (){
+        var search_term = _gel('search_term').value;
+        var request_url = 'http://leikind.org/lookup.xml?v='  + encodeURIComponent(search_term) ;
+        var content = '';
+
+        _IG_FetchXmlContent(request_url, function (response) {
+          if (response == null || typeof(response) != "object" || response.firstChild == null) {
+            _gel("dcontent").innerHTML =
+              '<div class="error_message">__MSG_server_error__</div>';
+            return;
+          }
+
+          var top = response.getElementsByTagName("response").item(0);
+
+          if (top.getAttribute("found") != 'true'){
+            _gel('dcontent').innerHTML = '<div class="no_results_message">__MSG_no_verb_found__</div>';
+          }else{
+            content =  '<table class="dresults"><tr><th class="no_bottom_border">__MSG_infinitive__</th><th colspan="2" class="no_bottom_border">__MSG_imperfectum__</th><th class="no_bottom_border">__MSG_perfectum__</th></tr>';
+            content +=        '<tr><th class="no_top_border"></th><th class="no_top_border">__MSG_singular__</th><th class="no_top_border">__MSG_plural__</th><th class="no_top_border"></th></tr>';
+            var words = response.getElementsByTagName("word");
+
+            for (var j = 0; j < words.length ; j++) {
+              var word = words.item(j);
+
+              var word_struct = {
+                auxiliary_verb : '',
+                infinitive : '',
+                past_singular : '',
+                past_plural : '',
+                perfect : ''
+              };
+
+              var forms = word.childNodes;
+              for (var i = 0; i < forms.length ; i++) {
+                var form = forms.item(i);
+
+                for (nodeName in word_struct){
+                  if ((form.nodeName == nodeName) && form.firstChild) {
+                    word_struct[nodeName] = form.firstChild.nodeValue;
+                    if (form.getAttribute("match") == 'true'){
+                      word_struct[nodeName] = '<b>' + word_struct[nodeName] + '</b>';
+                    }
+                  }
+                }
+              }
+
+              content = content + '<tr><td>' + word_struct.infinitive + '</td><td>' + 
+                word_struct.past_singular + '</td><td>' + word_struct.past_plural + '</td><td>' ;
+
+              if ( word_struct.perfect != ''){
+                content = content + '(' + word_struct.auxiliary_verb + ') ' + word_struct.perfect ;
+              }
+
+              content = content + '</td></tr>';
+            }
+            content += '</table>';
+            _gel('dcontent').innerHTML = content;
+          }
+        });
+      }
+
+    </script>
+
+    <style type="text/css">
+
+      #dutch_verbs_widget_container{
+        margin-top: 0px;
+        font-family: arial;
+        font-size: 100%;
+      }
+
+      #dutch_verbs_widget_container .dform{
+         margin-top: 0px;
+         text-align: center;
+      }
+
+      #dutch_verbs_widget_container table.dresults{
+        text-align: center;
+        font-size: 80%;
+        width: 100%;
+        border: 1px solid rgb(255, 204, 53);
+        border-collapse: collapse;
+      }
+
+      #dutch_verbs_widget_container table.dresults td{
+        border: 1px solid rgb(255, 204, 53);
+        padding:5px;
+      }
+
+      #dutch_verbs_widget_container table.dresults th{
+       border: 1px solid rgb(255, 204, 53);
+       font-weight: normal;
+       font-style: italic;
+        padding:5px;
+      }
+
+      #dutch_verbs_widget_container table.dresults th.no_bottom_border{
+        border-bottom: none;
+      }
+
+      #dutch_verbs_widget_container table.dresults th.no_top_border{
+        border-top: none;
+      }
+
+      #dutch_verbs_widget_container .no_results_message {
+          text-align: center;
+          width: 100%;
+          background-color : red;
+          padding: 5px;
+          background: rgb(255, 255, 204);
+          border-top: 1px solid rgb(255, 204, 53);
+          border-bottom: 1px solid rgb(255, 204, 53);
+      }
+      #dutch_verbs_widget_container .error_message {
+          text-align: center;
+          width: 100%;
+          background-color: rgb(245, 211, 211);
+          border-top: 1px solid rgb(255, 204, 53);
+          border-bottom: 1px solid rgb(255, 204, 53);
+          padding: 5px;
+      }
+
+    </style>
+
+    <div id="dutch_verbs_widget_container">
+      <form onsubmit="process(); return false">
+        <p class="dform">
+          <input type="text" value="" id="search_term" autocomplete="false" size="15">
+          <input type="submit" value="__MSG_lookup__" >
+        </p>
+      </form>
+      <div id="dcontent"></div>
+    </div>
+    ]]>
+  </Content>
+</Module>

@@ -1,0 +1,15 @@
+<messagebundle>
+  <msg name="server_error">
+    Une erreur s'est produite lors de la communication avec le serveur.
+  </msg>
+  <msg name="no_verb_found">
+    Aucun verbe trouvé
+  </msg>
+  <msg name="lookup">Chercher</msg>  
+  <msg name="infinitive">Infinitif</msg>
+  <msg name="perfectum">Passé composé</msg>
+  <msg name="imperfectum">Imparfait</msg>
+  <msg name="singular">Singulier</msg>
+  <msg name="plural">Pluriel</msg>
+  <msg name="widget_title">Verbes irréguliers</msg>
+</messagebundle>
